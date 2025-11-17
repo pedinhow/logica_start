@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="text-center mb-5">
+    <h1>Bem-vindo ao mundo da Lógica!</h1>
+    <p class="lead">Escolha um módulo abaixo para começar a aprender.</p>
+</div>
+
+<div class="row">
+    {% for id, lesson in lessons.items() %}
+    <div class="col-md-6 mb-3">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Módulo {{ id }}: {{ lesson.title }}</h5>
+                <p class="card-text">Aprenda o conceito básico e teste seu conhecimento.</p>
+                <a href="{{ url_for('lesson', lesson_id=id) }}" class="btn btn-primary w-100">Começar Aula</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

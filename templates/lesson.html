@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="{{ url_for('index') }}" class="btn btn-outline-secondary mb-3">← Voltar ao Menu</a>
+
+<div class="card shadow">
+    <div class="card-header bg-white">
+        <h2>{{ lesson.title }}</h2>
+    </div>
+    <div class="card-body">
+        <div class="theory-section mb-4">
+            {{ lesson.theory | safe }}
+        </div>
+
+        <hr>
+
+        <h4 class="mb-3">📝 Desafio Rápido</h4>
+        <p>{{ lesson.question | safe }}</p>
+
+        {% if feedback == 'success' %}
+            <div class="alert alert-success">
+                <strong>Parabéns!</strong> Você acertou! 🎉
+                <a href="{{ url_for('index') }}" class="btn btn-success btn-sm ms-2">Próxima Aula</a>
+            </div>
+        {% elif feedback == 'error' %}
+            <div class="alert alert-danger">
+                <strong>Ops!</strong> Resposta incorreta. Tente novamente. 😕
+            </div>
+        {% endif %}
+
+        {% if feedback != 'success' %}
+        <form method="POST">
+            <div class="list-group mb-3">
+                {% for option in lesson.options %}
+                <label class="list-group-item list-group-item-action">
+                    <input class="form-check-input me-1" type="radio" name="option" value="{{ option }}" required>
+                    {{ option }}
+                </label>
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg w-100">Verificar Resposta</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
