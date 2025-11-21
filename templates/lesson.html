@@ -14,32 +14,55 @@
 
         <hr>
 
-        <h4 class="mb-3">📝 Desafio Rápido</h4>
-        <p>{{ lesson.question | safe }}</p>
-
-        {% if feedback == 'success' %}
-            <div class="alert alert-success">
-                <strong>Parabéns!</strong> Você acertou! 🎉
-                <a href="{{ url_for('index') }}" class="btn btn-success btn-sm ms-2">Próxima Aula</a>
-            </div>
-        {% elif feedback == 'error' %}
-            <div class="alert alert-danger">
-                <strong>Ops!</strong> Resposta incorreta. Tente novamente. 😕
+        {% if results %}
+            <div class="alert {% if score == total %}alert-success{% else %}alert-warning{% endif %} mb-4">
+                <h4>Resultado: Você acertou {{ score }} de {{ total }}!</h4>
+                {% if score == total %}
+                    <p>Parabéns! Você dominou este módulo. 🎉</p>
+                    <a href="{{ url_for('index') }}" class="btn btn-success">Próxima Aula</a>
+                {% else %}
+                    <p>Revise os erros abaixo e tente novamente.</p>
+                    <a href="{{ url_for('lesson', lesson_id=lesson_id) }}" class="btn btn-primary">Tentar Novamente</a>
+                {% endif %}
             </div>
         {% endif %}
 
-        {% if feedback != 'success' %}
+        {% if not results or score != total %}
+        <h4 class="mb-3">📝 Desafio do Módulo</h4>
         <form method="POST">
-            <div class="list-group mb-3">
-                {% for option in lesson.options %}
-                <label class="list-group-item list-group-item-action">
-                    <input class="form-check-input me-1" type="radio" name="option" value="{{ option }}" required>
-                    {{ option }}
-                </label>
-                {% endfor %}
-            </div>
-            <button type="submit" class="btn btn-primary btn-lg w-100">Verificar Resposta</button>
+            {% for q in lesson.quiz %}
+                <div class="card mb-3 border-light bg-light">
+                    <div class="card-body">
+                        <p class="fw-bold">{{ loop.index }}. {{ q.question | safe }}</p>
+
+                        {% for option in q.options %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="{{ q.id }}" id="{{ q.id }}_{{ loop.index }}" value="{{ option }}" required>
+                            <label class="form-check-label" for="{{ q.id }}_{{ loop.index }}">
+                                {{ option }}
+                            </label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary btn-lg w-100">Verificar Respostas</button>
         </form>
+        {% else %}
+            {% for q in lesson.quiz %}
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <p class="fw-bold">{{ q.question | safe }}</p>
+                        {% set res = results[q.id] %}
+                        {% if res.is_correct %}
+                            <span class="badge bg-success">Você acertou: {{ res.user_answer }} ✅</span>
+                        {% else %}
+                            <span class="badge bg-danger">Você marcou: {{ res.user_answer }} ❌</span>
+                            <span class="text-muted ms-2">Correto seria: <strong>{{ res.correct_answer }}</strong></span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
         {% endif %}
     </div>
 </div>

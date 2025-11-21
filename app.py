@@ -17,17 +17,38 @@ def lesson(lesson_id):
     if not lesson_data:
         return "Aula não encontrada", 404
 
-    feedback = None
+    results = None
+    score = 0
+    total_questions = 0
 
-    if request.method == 'POST':
-        user_answer = request.form.get('option')
-        if user_answer == lesson_data['answer']:
-            feedback = "success"  # Resposta correta
-        else:
-            feedback = "error"  # Resposta errada
+    # Verifica se a aula tem o novo formato de quiz
+    if 'quiz' in lesson_data:
+        total_questions = len(lesson_data['quiz'])
 
-    return render_template('lesson.html', lesson=lesson_data, lesson_id=lesson_id, feedback=feedback)
+        if request.method == 'POST':
+            results = {}
+            for q in lesson_data['quiz']:
+                qid = q['id']
+                user_answer = request.form.get(qid)
 
+                # Verifica se acertou
+                is_correct = (user_answer == q['answer'])
+                if is_correct:
+                    score += 1
+
+                # Salva o resultado para mostrar no template
+                results[qid] = {
+                    'is_correct': is_correct,
+                    'user_answer': user_answer,
+                    'correct_answer': q['answer']
+                }
+
+    return render_template('lesson.html',
+                           lesson=lesson_data,
+                           lesson_id=lesson_id,
+                           results=results,
+                           score=score,
+                           total=total_questions)
 
 if __name__ == '__main__':
     app.run(debug=True)
