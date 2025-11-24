@@ -1,6 +1,7 @@
 lessons_db = {
     1: {
-        "title": "Módulo 1: Fundamentos da Memória",
+        "title": "Fundamentos da Memória",
+        "description": "Aprenda a armazenar dados com Variáveis e entenda os Tipos de Dados (Texto, Número, Lógico).",
         "theory": """
             <h3>📦 O que são Variáveis?</h3>
             <p>Imagine que a memória do computador é um grande armário cheio de gavetas. Para não perder as coisas, colamos etiquetas nessas gavetas. Na programação, essas etiquetas são as <strong>Variáveis</strong>.</p>
@@ -44,7 +45,8 @@ lessons_db = {
     },
 
     2: {
-        "title": "Módulo 2: Interagindo e Calculando",
+        "title": "Interagindo e Calculando",
+        "description": "Comunique-se com o usuário usando input() e domine cálculos com Operadores Especiais.",
         "theory": """
             <h3>🗣️ Conversando com o Usuário</h3>
             <p>O comando <code>input()</code> faz o programa parar e esperar o usuário digitar algo.</p>
@@ -94,7 +96,8 @@ lessons_db = {
     },
 
     3: {
-        "title": "Módulo 3: Tomando Decisões (Lógica)",
+        "title": "Tomando Decisões (Lógica)",
+        "description": "Ensine o programa a decidir! Use if e else para criar caminhos lógicos com and e or.",
         "theory": """
             <h3>🤔 O 'Se' e o 'Senão'</h3>
             <p>Programas inteligentes tomam decisões. Usamos o <code>if</code> (se) para verificar uma condição.</p>
@@ -138,7 +141,8 @@ else:
     },
 
     4: {
-        "title": "Módulo 4: Loops e Repetições",
+        "title": "Loops e Repetições",
+        "description": "Automatize tarefas com while e for e aprenda a repetir blocos de código com segurança.",
         "theory": """
             <h3>🔁 O Loop While (Enquanto)</h3>
             <p>Repete um bloco de código <strong>enquanto</strong> uma condição for verdadeira. Cuidado com o "Loop Infinito" (quando a condição nunca fica falsa)!</p>
@@ -168,7 +172,8 @@ else:
     },
 
     5: {
-        "title": "Módulo 5: Listas e Coleções",
+        "title": "Listas e Coleções",
+        "description": "Guarde múltiplos valores em Listas, entenda os Índices e use funções como append() e len().",
         "theory": """
             <h3>📋 Listas (Arrays)</h3>
             <p>Listas são variáveis super-poderosas que guardam vários valores.</p>
@@ -211,7 +216,8 @@ else:
     },
 
     6: {
-        "title": "Módulo 6: Funções",
+        "title": "Funções",
+        "description": "Crie suas próprias ferramentas reutilizáveis com def, usando Parâmetros e o comando return.",
         "theory": """
             <h3>🏭 Criando suas Próprias Ferramentas</h3>
             <p>Funções são blocos de código que ganham um nome e podem ser reutilizados.</p>
@@ -243,7 +249,8 @@ else:
     },
 
     7: {
-        "title": "Módulo 7: Caçadores de Bugs",
+        "title": "Caçadores de Bugs",
+        "description": "Desenvolva sua visão de Debugger! Entenda e resolva os erros mais comuns na programação.",
         "theory": """
             <h3>🐛 Tipos de Erros Comuns</h3>
             <p>Não se desespere com o texto vermelho! Ele tenta te ajudar.</p>

@@ -12,7 +12,7 @@
         <div class="card h-100 shadow-sm">
             <div class="card-body">
                 <h5 class="card-title">Módulo {{ id }}: {{ lesson.title }}</h5>
-                <p class="card-text">Aprenda o conceito básico e teste seu conhecimento.</p>
+                <p class="card-text">{{ lesson.description }}</p>
                 <a href="{{ url_for('lesson', lesson_id=id) }}" class="btn btn-primary w-100">Começar Aula</a>
             </div>
         </div>
