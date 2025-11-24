@@ -31,7 +31,7 @@ O software aborda os 4 pilares fundamentais da lógica procedural:
 1.  Clone ou baixe este repositório.
 2.  Instale as dependências:
     ```bash
-    pip install -r requirements.txt
+    pip install flask
     ```
 3.  Execute a aplicação:
     ```bash
