@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<a href="{{ url_for('index') }}" class="btn btn-outline-secondary mb-3">← Voltar ao Menu</a>
+<a href="{{ url_for('main.dashboard') }}" class="btn btn-outline-secondary mb-3">← Voltar ao Menu</a>
 
 <div class="card shadow">
     <div class="card-header bg-white">
@@ -14,17 +14,24 @@
 
         <hr>
 
+        {% if previous_best %}
+        <div class="alert alert-info py-2">
+            <small>🏆 Sua melhor pontuação neste módulo: <strong>{{ previous_best.score }}</strong> acertos.</small>
+        </div>
+        {% endif %}
+
         {% if results %}
-            <div class="alert {% if score == total %}alert-success{% else %}alert-warning{% endif %} mb-4">
-                <h4>Resultado: Você acertou {{ score }} de {{ total }}!</h4>
-                {% if score == total %}
-                    <p>Parabéns! Você dominou este módulo. 🎉</p>
-                    <a href="{{ url_for('index') }}" class="btn btn-success">Próxima Aula</a>
-                {% else %}
-                    <p>Revise os erros abaixo e tente novamente.</p>
-                    <a href="{{ url_for('lesson', lesson_id=lesson_id) }}" class="btn btn-primary">Tentar Novamente</a>
-                {% endif %}
-            </div>
+        <div class="alert {% if score == total %}alert-success{% else %}alert-warning{% endif %}">
+            <h4>Resultado Atual</h4>
+            <p>
+                Você acertou <strong>{{ score }}</strong> de <strong>{{ total }}</strong><br>
+                Aproveitamento: <strong>{{ percent }}%</strong><br>
+            </p>
+            {% if score == total %}
+                <p>Parabéns! Módulo concluído. 🎉</p>
+                <a href="{{ url_for('main.dashboard') }}" class="btn btn-success">Continuar Estudando</a>
+            {% endif %}
+        </div>
         {% endif %}
 
         {% if not results or score != total %}
@@ -53,10 +60,10 @@
                 <div class="card mb-2">
                     <div class="card-body">
                         <p class="fw-bold">{{ q.question | safe }}</p>
-                        {% set res = results[q.id] %}
-                        {% if res.is_correct %}
+                        {% set res = results.get(q.id) %}
+                        {% if res and res.is_correct %}
                             <span class="badge bg-success">Você acertou: {{ res.user_answer }} ✅</span>
-                        {% else %}
+                        {% elif res %}
                             <span class="badge bg-danger">Você marcou: {{ res.user_answer }} ❌</span>
                             <span class="text-muted ms-2">Correto seria: <strong>{{ res.correct_answer }}</strong></span>
                         {% endif %}

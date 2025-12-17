@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="text-center mb-4 no-print">
+    <button onclick="window.print()" class="btn btn-success btn-lg">🖨️ Imprimir / Salvar PDF</button>
+    <a href="{{ url_for('main.dashboard') }}" class="btn btn-secondary btn-lg">Voltar</a>
+</div>
+
+<div id="certificate-area" class="cert-container shadow-lg">
+    <div class="cert-header">Certificado de Conclusão</div>
+    <p class="lead">Certificamos que</p>
+    <h1 class="display-4 fw-bold text-uppercase my-4">{{ user.name }}</h1>
+    <div class="cert-body">
+        <p>Concluiu com êxito o curso introdutório de</p>
+        <h3>Lógica de Programação com Python</h3>
+        <p>Demonstrando domínio em variáveis, condicionais, loops e estruturas de dados.</p>
+        <p>Carga horária estimada: <strong>{{ total_hours }} horas</strong></p>
+        <p>Concluído em: <strong>{{ date }}</strong></p>
+    </div>
+    
+    <div class="row mt-5">
+        <div class="col-6 offset-3">
+            <div class="cert-signature">
+                <p class="mb-0"><strong>Equipe LógicaStart</strong></p>
+                <small>Plataforma de Ensino Open Source</small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

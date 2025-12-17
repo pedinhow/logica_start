@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a href="{{ url_for('main.lesson_content', lesson_id=lesson_id) }}" class="btn btn-outline-secondary btn-sm">← Revisar Teoria</a>
+            <span class="badge bg-primary">Quiz Módulo {{ lesson_id }}</span>
+        </div>
+
+        <div class="card shadow border-0">
+            <div class="card-header bg-white py-3">
+                <h3 class="mb-0">📝 Avaliação de Conhecimento</h3>
+            </div>
+            <div class="card-body p-4">
+
+                {% if results %}
+                    <div class="alert {% if score == total %}alert-success{% else %}alert-warning{% endif %} mb-4">
+                        <h4 class="alert-heading">
+                            {% if score == total %}Excelente! 🎉{% else %}Quase lá! 🤔{% endif %}
+                        </h4>
+                        <p>
+                            Você acertou <strong>{{ score }}</strong> de <strong>{{ total }}</strong> questões ({{ percent }}%).
+                        </p>
+                        {% if score == total %}
+                            <hr>
+                            <a href="{{ url_for('main.dashboard') }}" class="btn btn-success fw-bold">Concluir e Voltar ao Painel</a>
+                        {% else %}
+                            <p class="mb-0">Revise as questões marcadas em vermelho abaixo e tente novamente.</p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                {% if score != total %}
+                <form method="POST">
+                    {% for q in lesson.quiz %}
+                        {% set q_result = results.get(q.id) %}
+                        
+                        <div class="card mb-4 border-light bg-light question-card {% if q_result and not q_result.is_correct %}border-danger{% endif %}">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold mb-3">
+                                    {{ loop.index }}. {{ q.question | safe }}
+                                    {% if q_result %}
+                                        {% if q_result.is_correct %}
+                                            <span class="float-end text-success">✅</span>
+                                        {% else %}
+                                            <span class="float-end text-danger">❌</span>
+                                        {% endif %}
+                                    {% endif %}
+                                </h5>
+
+                                <div class="options-list">
+                                    {% for option in q.options %}
+                                    <div class="form-check custom-option">
+                                        <input class="form-check-input" type="radio" 
+                                               name="{{ q.id }}" 
+                                               id="{{ q.id }}_{{ loop.index }}" 
+                                               value="{{ option }}" 
+                                               required
+                                               {% if previous_answers.get(q.id) == option %}checked{% endif %}
+                                        >
+                                        <label class="form-check-label w-100" for="{{ q.id }}_{{ loop.index }}">
+                                            {{ option }}
+                                        </label>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                
+                                {% if q_result and not q_result.is_correct %}
+                                    <div class="mt-2 text-danger small">
+                                        <i class="bi bi-exclamation-circle"></i> Resposta incorreta. Tente outra vez.
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            {% if results %}Tentar Novamente{% else %}Enviar Respostas{% endif %}
+                        </button>
+                    </div>
+                </form>
+                {% else %}
+                
+                <div class="list-group">
+                    {% for q in lesson.quiz %}
+                    <div class="list-group-item list-group-item-success">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">{{ loop.index }}. {{ q.question | safe }}</h6>
+                            <small>Correto ✅</small>
+                        </div>
+                        <p class="mb-1">Resposta: <strong>{{ q.answer }}</strong></p>
+                    </div>
+                    {% endfor %}
+                 </div>
+                 <div class="mt-4 text-center">
+                    <a href="{{ url_for('main.dashboard') }}" class="btn btn-outline-primary">Voltar ao Dashboard</a>
+                 </div>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

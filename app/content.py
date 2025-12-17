@@ -1,3 +1,5 @@
+# Arquivo: app/content.py
+
 lessons_db = {
     1: {
         "title": "Fundamentos da Memória",

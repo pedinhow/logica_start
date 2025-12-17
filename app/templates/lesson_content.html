@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a href="{{ url_for('main.dashboard') }}" class="btn btn-outline-secondary btn-sm">← Voltar</a>
+            <span class="text-muted text-uppercase small fw-bold">Módulo {{ lesson_id }}</span>
+        </div>
+
+        <article class="theory-container bg-white p-5 shadow-sm rounded-3">
+            <h1 class="display-5 fw-bold mb-4 text-primary">{{ lesson.title }}</h1>
+            <p class="lead text-muted mb-5">{{ lesson.description }}</p>
+            
+            <div class="theory-content">
+                {{ lesson.theory | safe }}
+            </div>
+        </article>
+
+        <div class="mt-5 text-end">
+            <p class="text-muted mb-2">Terminou a leitura?</p>
+            <a href="{{ url_for('main.lesson_quiz', lesson_id=lesson_id) }}" class="btn btn-primary btn-lg px-5 shadow">
+                Ir para o Desafio ➡️
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 60vh;">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow-lg">
+            <div class="card-body p-5 text-center">
+                <h2 class="mb-4">Identificação</h2>
+                <p class="text-muted mb-4">Digite seu nome para começar ou continuar sua jornada.</p>
+                <form method="POST">
+                    <div class="mb-3">
+                        <input type="text" name="name" class="form-control form-control-lg text-center" placeholder="Seu Nome" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg w-100">Entrar 🚀</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
