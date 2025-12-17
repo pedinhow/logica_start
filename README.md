@@ -2,15 +2,19 @@
 
 O **LógicaStart** é um **Recurso Educacional Aberto (REA)** criado para ensinar **Lógica de Programação** a alunos do **Ensino Médio**, de forma acessível, prática e contextualizada.
 
-O projeto utiliza **Python 3** com **Flask** e foi pensado para reduzir a barreira inicial da programação, permitindo que estudantes aprendam conceitos fundamentais sem a complexidade de configurar ambientes avançados.
+O projeto utiliza **Python 3** com **Flask** e **Banco de Dados** para oferecer uma experiência completa com login, acompanhamento de progresso e certificação, sem perder a simplicidade de uso.
 
 ---
 
 ## 📖 Sobre o Projeto
 
-O LógicaStart é uma aplicação web educacional que apresenta conceitos de programação em **pílulas de aprendizado (microlearning)**, sempre acompanhadas de exemplos do cotidiano do aluno e atividades de fixação.
+O LógicaStart é uma aplicação web educacional que apresenta conceitos de programação em **pílulas de aprendizado (microlearning)**. Diferente de sites estáticos, ele agora permite que o aluno:
 
-Todo o conteúdo didático do site fica centralizado em um único arquivo (`content.py`), facilitando a adaptação do material por professores, mesmo sem experiência prévia em desenvolvimento web.
+1.  **Crie uma conta simplificada** (apenas com o nome).
+2.  **Acompanhe seu progresso** através de um Dashboard interativo.
+3.  **Receba um certificado** ao concluir todos os módulos.
+
+Todo o conteúdo didático continua centralizado em um único arquivo (`app/content.py`), facilitando a adaptação do material por professores.
 
 ---
 
@@ -26,12 +30,13 @@ Todo o conteúdo didático do site fica centralizado em um único arquivo (`cont
 
 ### Informações do Sistema
 
-* **Backend:** Flask (Python 3)
+* **Backend:** Flask (Python 3) + SQLAlchemy
 * **Frontend:** HTML5 + Jinja2
-* **Estilização:** Bootstrap 5
-* **Estrutura de Conteúdo:** Dicionário Python centralizado no arquivo `content.py`
+* **Estilização:** Bootstrap 5 (Mobile-First)
+* **Banco de Dados:** SQLite (Automático e Local)
+* **Estrutura de Conteúdo:** Dicionário Python centralizado no arquivo `app/content.py`
 
-> 📌 Não é necessário banco de dados. Todo o site é alimentado diretamente por estruturas Python simples.
+> 📌 O banco de dados é criado automaticamente na primeira execução. Não é necessário instalar softwares adicionais de banco de dados (como MySQL ou Postgres) para rodar localmente.
 
 ---
 
@@ -40,9 +45,12 @@ Todo o conteúdo didático do site fica centralizado em um único arquivo (`cont
 O projeto cobre os principais pilares da lógica de programação:
 
 1. Variáveis e Tipos de Dados
-2. Estruturas Condicionais (`if / else`)
-3. Laços de Repetição (`while`)
-4. Estruturas de Dados Básicas (listas)
+2. Entrada e Saída de Dados
+3. Estruturas Condicionais (`if / else`)
+4. Laços de Repetição (`while` e `for`)
+5. Estruturas de Dados Básicas (listas)
+6. Funções e Modularização
+7. Depuração de Código
 
 ---
 
@@ -75,12 +83,12 @@ Navegue até a pasta onde você extraiu o projeto.
 
 ---
 
-### Passo 4 – Instalar o Flask
+### Passo 4 – Instalar as Dependências
 
 No terminal, digite o comando abaixo e pressione **Enter**:
 
 ```bash
-pip install flask
+pip install -r requirements.txt
 ```
 
 ---
